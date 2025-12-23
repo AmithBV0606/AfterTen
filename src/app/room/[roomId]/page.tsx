@@ -2,12 +2,19 @@
 
 import { use, useState } from "react";
 
+const formatTimeRemaining = (seconds: number) => {
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${mins}:${secs.toString().padStart(2, "0")}`;
+};
+
 export default function BlogPostPage({
   params,
 }: {
   params: Promise<{ roomId: string }>;
 }) {
   const [copied, setCopied] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState<number | null>(129);
   const { roomId } = use(params);
 
   const copyLink = () => {
@@ -48,6 +55,25 @@ export default function BlogPostPage({
           </div>
 
           <div className="h-8 w-px bg-zinc-800" />
+
+          <div className="flex flex-col">
+            <span className="text-xs text-zinc-500 uppercase">
+              Self-Destruct
+            </span>
+
+            {/* Timer : */}
+            <span
+              className={`text-sm font-bold flex items-center gap-2 ${
+                timeRemaining !== null && timeRemaining < 60
+                  ? "text-red-500"
+                  : "text-amber-500"
+              }`}
+            >
+              {timeRemaining !== null
+                ? formatTimeRemaining(timeRemaining)
+                : "--:--"}
+            </span>
+          </div>
         </div>
       </header>
     </main>
