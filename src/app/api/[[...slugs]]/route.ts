@@ -1,8 +1,10 @@
-import { Elysia, t } from "elysia";
+import { Elysia } from "elysia";
 
-export const app = new Elysia({ prefix: "/api" })
-  .get("/", "Hello Nextjs")
-  .get("/users", { user: { name: "Amith", age: 25 } });
+const rooms = new Elysia({ prefix: "/room" }).post("/create", () => {
+  console.log("ROOM CREATED, ENJOY!!");
+});
+
+export const app = new Elysia({ prefix: "/api" }).use(rooms);
 
 export const GET = app.fetch;
 export const POST = app.fetch;
