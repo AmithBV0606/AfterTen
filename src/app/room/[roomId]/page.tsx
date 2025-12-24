@@ -42,7 +42,9 @@ export default function BlogPostPage({
 
             <div className="flex items-center gap-2">
               {/* RoomID : */}
-              <span className="font-bold text-green-500">{roomId}</span>
+              <span className="font-bold text-green-500 text-xs md:text-sm">
+                {roomId}
+              </span>
 
               {/* Copy button : */}
               <button
@@ -56,6 +58,7 @@ export default function BlogPostPage({
 
           <div className="h-8 w-px bg-zinc-800" />
 
+          {/* Countdown Timer : */}
           <div className="flex flex-col">
             <span className="text-xs text-zinc-500 uppercase">
               Self-Destruct
@@ -74,7 +77,14 @@ export default function BlogPostPage({
                 : "--:--"}
             </span>
           </div>
+
+          <div className="h-8 w-px bg-zinc-800" />
         </div>
+
+        <button className="text-xs bg-zinc-800 hover:bg-red-500 px-3 py-1.5 rounded text-zinc-400 hover:text-white font-bold transition-all group flex items-center gap-2 disabled:opacity-50 cursor-pointer">
+          <span className="group-hover:animate-pulse">💣</span>
+          <span className="hidden md:block">DESTROY NOW</span>
+        </button>
       </header>
     </main>
   );
