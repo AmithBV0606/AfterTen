@@ -1,7 +1,7 @@
 "use client";
 
 import { Send } from "lucide-react";
-import { use, useState } from "react";
+import { use, useRef, useState } from "react";
 
 const formatTimeRemaining = (seconds: number) => {
   const mins = Math.floor(seconds / 60);
@@ -16,6 +16,8 @@ export default function BlogPostPage({
 }) {
   const [copied, setCopied] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState<number | null>(129);
+  const [input, setInput] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
   const { roomId } = use(params);
 
   const copyLink = () => {
@@ -103,6 +105,17 @@ export default function BlogPostPage({
             <input
               autoFocus
               type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && input.trim()) {
+                  // TODO: SEND MESSAGE
+
+                  // Once the "Enter" is hit, the focus should still stay on the input:
+                  inputRef.current?.focus();
+                }
+              }}
+              placeholder="Type message..."
               className="w-full bg-black border border-zinc-800 focus:border-zinc-700 focus:outline-none transition-colors text-zinc-100 placeholder:text-zinc-700 py-3 pl-8 pr-4 text-sm"
             />
           </div>
